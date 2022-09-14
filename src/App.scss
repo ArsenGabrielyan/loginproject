@@ -1,3 +1,10 @@
+$firstColor: #e8519e;
+$secondColor: #c77ff2;
+$checkboxColor: #C87EF0;
+$hexDarkGray: #333333;
+$hexGray: #999999;
+$hexLightGray: #E6E6E6;
+
 *{
   margin: 0;
   padding: 0;
@@ -5,4 +12,88 @@
 }
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 830px 550px;
+  min-height: 150vh;
+}
+.bg{
+  background: linear-gradient(to top,rgba(232, 81, 158, 0.75), rgba(199, 127, 242, 0.75)), url(./img/bg-01.jpg);
+  background-size: cover;
+}
+.loginContainer{
+  margin: 72px 50px 50px 50px;
+  h2{
+    font-size: 40px;
+    text-align: left;
+    color: $hexDarkGray;
+  }
+}
+.frm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px 0;
+  color: $hexGray;
+  .labelBox{
+    color: $hexGray;
+    font-weight: bold;
+  }
+  .inputBox{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 50px;
+  }
+  .agreeText{
+    width: 100%;
+    position: relative;
+    left: 20px;
+    padding: 0 10px;
+  }
+  .midBold{
+    color: $hexDarkGray;
+  }
+  .agreedCheckBox{
+    position: relative;
+  }
+  .agreeCheck{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    &:checked{
+      ~ {
+        .agreeBox{
+          background: $hexLightGray;
+          &::after{
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .agreeBox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: $hexLightGray;
+    &::after{
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid $checkboxColor;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+  }
+  .loginBtn{
+    padding: 0 20px;
+    width: 240px;
+    height: 50px;
+    margin: 30px 0;
+  }
 }
