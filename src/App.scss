@@ -22,6 +22,10 @@ $hexLightGray: #E6E6E6;
   background: linear-gradient(to top,rgba(232, 81, 158, 0.75), rgba(199, 127, 242, 0.75)), url(./img/bg-01.jpg);
   background-size: 120%;
 }
+.bg2{
+  background: linear-gradient(to top,rgba(232, 81, 158, 0.75), rgba(199, 127, 242, 0.75)), url(./img/bg-01.jpg);
+  background-size: cover;
+}
 .loginContainer{
   margin: 72px 50px 50px 50px;
   h2{

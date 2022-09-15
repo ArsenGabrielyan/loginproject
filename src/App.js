@@ -1,15 +1,18 @@
 import './App.scss';
-import SignUpForm from "./components/SignUpForm";
+import MainPage from './components/MainPage';
+import { Route, Routes } from 'react-router-dom';
+import SignInPage from './components/SignIn';
 
 function App() {
   return (
     <div className="App">
-      <div className="bg"></div>
-      <div className="loginContainer">
-        <h2>Sign Up</h2>
-        <SignUpForm />
-      </div>
+      <Routes>
+        <Route path='/' element={ <MainPage />} />
+        <Route path='/signin' element={ <SignInPage />} />
+      </Routes>
+     
     </div>
+    
   );
 }
 

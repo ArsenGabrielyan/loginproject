@@ -2,6 +2,7 @@ import React from "react";
 import { Icon } from '@iconify/react';
 import { Formik } from "formik";
 import * as Yup from "yup"
+import { Link } from "react-router-dom";
 
 const signupSchema = Yup.object().shape({
      name: Yup.string().min(1, "Too Short").required("Required"),
@@ -17,9 +18,6 @@ class SignUpForm extends React.Component{
           super(props)
           this.state = {checked: false}
           this.handleClick = this.handleClick.bind(this);
-     }
-     handleChangeCheckbox(){
-          
      }
      handleClick(e){
           if(this.state.checked === false){
@@ -43,20 +41,19 @@ class SignUpForm extends React.Component{
                          type="text" 
                          name="name"  
                          id="fullName" placeholder="Name..." className="inputBox" 
-                         onChange={handleChange} 
-                         value={this.state.fullName}/>
+                         onChange={handleChange} />
                          <label htmlFor="email" className="labelBox">Email</label>
                          {errors.email ? (<p className="validError">{errors.email}</p>) : null}
-                         <input type="email" name="email"  id="email" placeholder="Email address..." className="inputBox" onChange={handleChange} value={this.state.email}/>
+                         <input type="email" name="email"  id="email" placeholder="Email address..." className="inputBox" onChange={handleChange} />
                          <label htmlFor="username" className="labelBox">Username</label>
                          {errors.username ? (<p className="validError">{errors.username}</p>) : null}
-                         <input type="text" name="username"  id="userName" placeholder="Username..." className="inputBox" onChange={handleChange} value={this.state.username}/>
+                         <input type="text" name="username"  id="userName" placeholder="Username..." className="inputBox" onChange={handleChange} />
                          <label htmlFor="pass" className="labelBox">Password</label>
                          {errors.pass ? (<p className="validError">{errors.pass}</p>) : null}
-                         <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChange} value={this.state.pass}/>
+                         <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChange} />
                          <label htmlFor="confirmPass" className="labelBox">Repeat Password</label>
                          {errors.confirmPass ? (<p className="validError">{errors.confirmPass}</p>) : null}
-                         <input type="password" name="confirmPass" id="confirmPassword" placeholder="****************" className="inputBox" onChange={handleChange} value={this.state.confirmPass}/>
+                         <input type="password" name="confirmPass" id="confirmPassword" placeholder="****************" className="inputBox" onChange={handleChange}/>
                          <span className="agreedCheckBox" onChange={handleChange}>
                               {errors.agreed ? (<p className="validError">{errors.agreed}</p>) : null}
                               <input type="checkbox" name="agreed" className="agreeCheck" onChange={handleChange} checked={this.state.checked}/>
@@ -67,7 +64,7 @@ class SignUpForm extends React.Component{
                     )}
                </Formik>
                <div className="linkPos">
-                    <a href="/" className="link">Sign In <Icon icon="akar-icons:arrow-right"/></a>
+                    <Link to="/signin" className="link">Sign In <Icon icon="akar-icons:arrow-right"/></Link>
                </div>
                </div>
           )
