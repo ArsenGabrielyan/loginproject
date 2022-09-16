@@ -1,7 +1,6 @@
 $checkboxSize: 20px;
 $firstColor: #e8519e;
 $secondColor: #c77ff2;
-$checkboxColor: #C87EF0;
 $hexDarkGray: #333333;
 $hexGray: #999999;
 $hexMedGray: #DBDBDB;
@@ -69,59 +68,17 @@ $hexLightGray: #E6E6E6;
   }
   .agreeText{
     width: 100%;
-    position: relative;
-    left: 0;
+    padding: 0 10px;
+  }
+  input[type=checkbox]{
+    width: $checkboxSize;
+    height: $checkboxSize;
+    border: none;
+    accent-color: $hexMedGray;
   }
   .midBold{
     color: $hexDarkGray;
   }
-  .agreedCheckBox{
-    position: relative;
-    display: block;
-    .agreeCheck{
-      & + label{
-        display: inline-block;
-        position: relative;
-        line-height: $checkboxSize;
-        padding-left: $checkboxSize + 10;
-        font-size: $checkboxSize - 2;
-        &::before{
-          content: "";
-          position: absolute;
-          display: block;
-          left: 0;
-          top: 0;
-          background: $hexLightGray;
-          width: $checkboxSize;
-          height: $checkboxSize;
-        }
-        &::after{
-          content: "";
-          position: absolute;
-          display: block;
-          top: 2px;
-          left: 7px;
-          width: 5px;
-          height: 10px;
-          border-right: 2px solid transparent;
-          border-bottom: 2px solid transparent;
-          transform: rotate(45deg);
-        }
-      }
-      & + label:focus{
-        outline: none;
-      }
-      &:checked{
-        & + label{
-          &::before{
-            background: $hexLightGray;
-          }
-          &::after{
-            border-color: $checkboxColor;
-          }
-        }
-      }
-    }
   }
   .loginBtn{
     padding: 0 20px;
@@ -140,7 +97,6 @@ $hexLightGray: #E6E6E6;
       background: linear-gradient($firstColor, $secondColor,);
     }
   }
-}
 .linkPos{
   position: relative;
   .link{
@@ -156,4 +112,17 @@ $hexLightGray: #E6E6E6;
 }
 .validError{
   color: #e4343c;
+}
+@media screen and (max-width: 1024px){
+  .App{
+    grid-template-columns: auto 550px;
+  }
+  .bg{
+    background-size: cover;
+  }
+}
+@media screen and (max-width: 425px){
+  .loginContainer{
+    margin: 60px 35px;
+  }
 }
