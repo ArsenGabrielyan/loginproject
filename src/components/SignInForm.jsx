@@ -12,7 +12,7 @@ class SignInFormComp extends React.Component{
      handleChangeEmail(e){this.setState({email: e.target.value,})}
      handleChangePass(e){this.setState({password: e.target.value}) }
      emailValidation(){
-          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //eslint-disable-line
           return !(!this.state.email || regex.test(this.state.email) === false);
      }
      passwordValidation(){return !(!this.state.password || this.state.password.length <= 8)}

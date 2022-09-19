@@ -1,0 +1,31 @@
+$firstColor: #e8519e;
+$secondColor: #c77ff2;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins";
+}
+.logoutBtn {
+  padding: 12px 24px;
+  border-radius: 25px;
+  background: linear-gradient($secondColor, $firstColor);
+  font-size: 18px;
+  color: white;
+  font-family: "Poppins";
+  border: none;
+  outline: none;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background: linear-gradient($firstColor, $secondColor);
+    cursor: pointer;
+  }
+}
+.loginContainer2 {
+  margin: 15px 50px;
+}
+h1{
+     margin: 15px 0;
+}
