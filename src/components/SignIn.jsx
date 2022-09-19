@@ -18,7 +18,7 @@ function SignInPage(){
                 <h2>Sign In</h2>
                <SignInFormComp onEmailSubmit={onSubmitLogin} onPassSubmit={onSubmitLogin}/>
                <div className="linkPos">
-               <Link to="/" className="link">Sign Up <Icon icon="akar-icons:arrow-right"/></Link>
+               <Link to="/signup" className="link">Sign Up <Icon icon="akar-icons:arrow-right"/></Link>
           </div>
           </div>
           </>

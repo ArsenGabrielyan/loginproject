@@ -95,6 +95,7 @@ $hexLightGray: #E6E6E6;
     transition: .3s ease-in-out;
     &:hover{
       background: linear-gradient($firstColor, $secondColor,);
+      cursor: pointer;
     }
   }
 .linkPos{

@@ -24,7 +24,7 @@ class SignUpFormComp extends React.Component{
      nameValid(){return !(!this.state.name || this.state.name.length <= 2)}
      usernameValid(){return !(!this.state.username || this.state.username.length <= 2)}
      emailValid(){
-          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;  //eslint-disable-line
           return !(!this.state.email || regex.test(this.state.email) === false);
      }
      passValid(){return !(!this.state.pass || this.state.pass.length <= 8)}
