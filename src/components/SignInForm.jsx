@@ -1,13 +1,13 @@
 import React from "react";
 
-class EmailValidComp extends React.Component{
+class SignInFormComp extends React.Component{
      constructor(props){
           super(props)
           this.state = {
                email:"",
                password: "",
-               isValid: false,
-               isValid2: false,
+               isValidEmail: false,
+               isValidPassword: false,
                message: "",
                message2: "",
           };
@@ -32,18 +32,18 @@ class EmailValidComp extends React.Component{
      handleSubmitLogin(){
           const isPassValid = this.passwordValidation();
           this.setState({
-               isValid2: isPassValid,
+               isValidPassword: isPassValid,
                message2: isPassValid ? "" : "Invalid Password"
           },()=> this.props.onPassSubmit(this.state))
-          if(this.state.isValid2){
+          if(this.state.isValidPassword){
                console.log(this.state)
           }
           const isEmailValid = this.emailValidation();
           this.setState({
-               isValid: isEmailValid,
+               isValidEmail: isEmailValid,
                message: isEmailValid ? "" : "Invalid Email"
           },()=> this.props.onEmailSubmit(this.state))
-          if(this.state.isValid){
+          if(this.state.isValidEmail){
                console.log(this.state)
           }
      }
@@ -67,4 +67,4 @@ class EmailValidComp extends React.Component{
      }
 }
 
-export default EmailValidComp
+export default SignInFormComp
