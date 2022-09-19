@@ -15,43 +15,21 @@ class SignUpFormComp extends React.Component{
           this.handleChangeConfirmPass = this.handleChangeConfirmPass.bind(this)
           this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this)
      }
-     handleChangeName(e){
-          this.setState({name: e.target.value})
-     }
-     handleChangeEmail(e){
-          this.setState({email: e.target.value})
-     }
-     handleChangeUsername(e){
-          this.setState({username: e.target.value})
-     }
-     handleChangePass(e){
-          this.setState({pass: e.target.value})
-     }
-     handleChangeConfirmPass(e){
-          this.setState({confirmPass: e.target.value})
-     }
-     handleChangeCheckbox(e){
-          this.setState({agreed: e.target.checked})
-     }
-     nameValid(){
-          return !(!this.state.name || this.state.name.length <= 2)
-     }
-     usernameValid(){
-          return !(!this.state.username || this.state.username.length <= 2)
-     }
+     handleChangeName(e){this.setState({name: e.target.value})}
+     handleChangeEmail(e){this.setState({email: e.target.value})}
+     handleChangeUsername(e){this.setState({username: e.target.value})}
+     handleChangePass(e){this.setState({pass: e.target.value})}
+     handleChangeConfirmPass(e){this.setState({confirmPass: e.target.value})}
+     handleChangeCheckbox(e){this.setState({agreed: e.target.checked})}
+     nameValid(){return !(!this.state.name || this.state.name.length <= 2)}
+     usernameValid(){return !(!this.state.username || this.state.username.length <= 2)}
      emailValid(){
           const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
           return !(!this.state.email || regex.test(this.state.email) === false);
      }
-     passValid(){
-          return !(!this.state.pass || this.state.pass.length <= 8)
-     }
-     confirmPassValid(){
-          return !(!this.state.confirmPass || this.state.pass !== this.state.confirmPass)
-     }
-     checkBoxValid(){
-          return !(!this.state.agreed)
-     }
+     passValid(){return !(!this.state.pass || this.state.pass.length <= 8)}
+     confirmPassValid(){return !(!this.state.confirmPass || this.state.pass !== this.state.confirmPass)}
+     checkBoxValid(){return !(!this.state.agreed)}
      handleSubmitSignUp(){
           const isNameValid = this.nameValid()
           const isEmailValid = this.emailValid()
