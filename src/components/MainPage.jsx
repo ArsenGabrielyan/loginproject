@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpForm from "./SignUpForm";
+import SignUpPage from "./SignUp";
 
 function MainPage(){
      return(
@@ -7,7 +7,7 @@ function MainPage(){
           <div className="bg"></div>
           <div className="loginContainer">
                <h2>Sign Up</h2>
-               <SignUpForm />
+               <SignUpPage />
           </div>
      </>
      )
