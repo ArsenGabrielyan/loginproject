@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const url = "http://localhost:3010/"
+const url = "/"
 
 const getPublicContent = () =>{
      return axios.get(url + "all")
