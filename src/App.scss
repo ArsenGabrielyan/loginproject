@@ -114,6 +114,9 @@ $hexLightGray: #E6E6E6;
 .validError{
   color: #e4343c;
 }
+.validSuccess{
+  color: green;
+}
 @media screen and (max-width: 1024px){
   .App{
     grid-template-columns: auto 550px;

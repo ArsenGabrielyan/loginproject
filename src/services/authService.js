@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // const url = "http://localhost:3000/users"
-const url = "http://localhost:3010/"
+const url = "/"
 
 const register = (fullName, email, username, password, confirmPassword, isChecked) =>{
-     return axios.post(url,{
+     return axios.post(url + "signup",{
           fullName,
           email,
           username,
@@ -26,6 +26,7 @@ const login = (email, password) =>{
      })
 }
 const logout = () => localStorage.removeItem("user");
+
 export default {
      register,login,logout
 }
