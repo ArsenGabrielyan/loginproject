@@ -1,32 +1,29 @@
-import axios from "axios";
+// import axios from "axios";
 
-// const url = "http://localhost:3000/users"
-const url = "/"
+const dbUrl = "http://localhost:3010/users"
 
-const register = (fullName, email, username, password, confirmPassword, isChecked) =>{
-     return axios.post(url + "signup",{
+const register = (fullName, email, username, date, phone, password, confirmPassword, isChecked) =>{
+     const formSignUpObj = {
           fullName,
           email,
           username,
+          date,
+          phone,
           password, 
           confirmPassword, 
           isChecked
-     })
+     }
+     fetch(dbUrl,{
+          method: "POST",
+          headers: {
+               "Content-Type": "application/json"
+             },
+          body: JSON.stringify(formSignUpObj)
+     }).then(res => res.json).then(data => console.log(data))
 }
 
-const login = (email, password) =>{
-     return axios.post(url + "signin", {
-          email,
-          password
-     }).then(res =>{
-          if(res.data.accessToken){
-               localStorage.setItem("user", JSON.stringify(res.data))
-          }
-          return res.data
-     })
-}
 const logout = () => localStorage.removeItem("user");
 
 export default {
-     register,login,logout
+     register,logout
 }
