@@ -35,7 +35,7 @@ function SignInFormComp(props){
                fetch("http://localhost:3010/users").then(res => res.json())
                .then(data => {
                     for(let i=0; i<data.length; i++){
-                         if(data[i].email === email && data[i].password === password){
+                         if(data[i].email === email && (data[i].password === password || data[i].confirmPassword === password)){
                               localStorage.setItem("user", JSON.stringify(data[i]))
                               navigate("/profile")
                          }
