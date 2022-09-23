@@ -1,13 +1,22 @@
 import React from "react";
-import "../dashboard.scss"
+import { Link } from "react-router-dom";
 
 class Home extends React.Component{
      render(){
           return(
-               <>
-                    <h1>Name</h1>
-                    <div className="loginContainer2"><button className="logoutBtn">Log Out</button></div>
-               </>
+               <div className="profile-page">
+                     <header className="profileHeader">
+                    <div className="left">
+                         <h1 className="logo">MEETME</h1>
+                    </div>
+                    <div className="right">
+                         <ul className="linkList">
+                              <li className="linkItem"><Link to="/signin" className="link">SIGN IN</Link></li>
+                              <li className="linkItem"><Link to="/signup" className="link">SIGN UP</Link></li>
+                         </ul>
+                    </div>
+               </header>
+               </div>
           )
      }
 }

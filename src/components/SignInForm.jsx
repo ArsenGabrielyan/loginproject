@@ -1,7 +1,5 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux"
-import { Navigate } from "react-router-dom";
-import {login} from "../actions/auth"
+import {useNavigate } from "react-router-dom";
 
 function SignInFormComp(props){
      const [email, setEmail] = useState("")
@@ -10,12 +8,8 @@ function SignInFormComp(props){
      const [isValidPassword, setIsValidPassword] = useState(false)
      const [message1, setMessage1] = useState("")
      const [message2, setMessage2] = useState("")
-
-     const {isLoggedIn} = useSelector(state => state.auth)
-
-     const {message} = useSelector(state => state.message)
-
-     const dispatch = useDispatch()
+     const navigate = useNavigate()
+     const [message, setMessage] = useState("")
 
      function handleChangeEmail(e){
           setEmail(e.target.value)
@@ -28,7 +22,8 @@ function SignInFormComp(props){
           return !(!email || regex.test(email) !== true);
      }
      function passwordValidation(){return !(!password || password.length <= 8)}
-     function handleSubmitLogin(){
+     function handleSubmitLogin(e){
+          e.preventDefault()
           const isPassValid = passwordValidation();
           const isEmailValid = emailValidation();
           setIsValidPassword(isPassValid)
@@ -36,30 +31,29 @@ function SignInFormComp(props){
           setIsValidEmail(isEmailValid)
           setMessage1(isEmailValid ? "" : "Invalid Email")
           if(isValidEmail && isValidPassword){
-               dispatch(login(email, password))
-               .then(()=>{
-                    props.history.push("/profile");
-                    window.location.reload();
-               })
                console.log(email, password)
+               fetch("http://localhost:3010/users").then(res => res.json())
+               .then(data => {
+                    for(let i=0; i<data.length; i++){
+                         if(data[i].email === email && data[i].password === password){
+                              localStorage.setItem("user", JSON.stringify(data[i]))
+                              navigate("/profile")
+                         }
+                         setMessage(data[i].email !== email || data[i].password !== password ? "Cannot Log in" : "")
+                    }
+               })
           } 
-          if(isLoggedIn){
-               return <Navigate to="/profile" />
-          }
-     }
-     function handlePreventDef(e){
-          e.preventDefault()
      }
      return(
           <>
-               <form className="frm" onSubmit={handlePreventDef}>
+               <form className="frm" onSubmit={handleSubmitLogin}>
                <p className="validError">{message1}</p>
                <label htmlFor="email" className="labelBox">Email</label>
                     <input type="email" name="email"  id="email" placeholder="Email address..." className="inputBox" onChange={handleChangeEmail} value={email} />
                     <p className="validError">{message2}</p>
                     <label htmlFor="pass" className="labelBox">Password</label>
                     <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChangePass} value={password} />
-                    <button type="submit" className="loginBtn" onClick={() => handleSubmitLogin()}>Sign In</button>
+                    <button type="submit" className="loginBtn">Sign In</button>
                </form>
                {message && (
                     <p className="validError">{message}</p>

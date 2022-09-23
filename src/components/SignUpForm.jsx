@@ -1,15 +1,15 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux"
-import { Navigate } from "react-router-dom"
 import {register} from "../actions/auth";
 
-function SignUpFormComp(props){
+function SignUpFormComp(){
      const [name, setName] = useState("")
      const [email, setEmail] = useState("")
      const [username, setUsername] = useState("")
      const [pass, setPass] = useState("")
      const [confirmPass, setConfirmPass] = useState("")
      const [agreed, setAgreed] = useState(false)
+     const [birthDate, setBirthDate] = useState("")
+     const [phone, setPhone] = useState("")
 
      const [isValidName, setIsValidName] = useState(false)
      const [isValidEmail, setIsValidEmail] = useState(false)
@@ -17,6 +17,8 @@ function SignUpFormComp(props){
      const [isValidPass, setIsValidPass] = useState(false)
      const [isPassConfirmed, setIsPassConfirmed] = useState(false)
      const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
+     const [isValidDate, setIsValidDate] = useState(false)
+     const [isValidPhone, setIsValidPhone] = useState(false)
 
      const [msgName, setMsgName] = useState("")
      const [msgEmail, setMsgEmail] = useState("")
@@ -24,14 +26,11 @@ function SignUpFormComp(props){
      const [msgPass, setMsgPass] = useState("")
      const [msgConfirmPass, setMsgConfirmPass] = useState("")
      const [msgCheckbox, setMsgCheckbox] = useState("")
+     const [message, setMessage] = useState("")
+     const [msgDate, setMsgDate] = useState("")
+     const [msgPhone, setMsgPhone] = useState("")
 
      const [successful, setSuccessful] = useState(false)
-
-     const {isLoggedIn} = useSelector(state => state.auth)
-
-     const {message} = useSelector(state => state.message)
-
-     const dispatch = useDispatch()
 
      function handleChangeName(e){setName(e.target.value)}
      function handleChangeEmail(e){setEmail(e.target.value)}
@@ -39,16 +38,18 @@ function SignUpFormComp(props){
      function handleChangePass(e){setPass(e.target.value)}
      function handleChangeConfirmPass(e){setConfirmPass(e.target.value)}
      function handleChangeCheckbox(e){setAgreed(e.target.checked)}
+     function handleChangePhone(e){setPhone(e.target.value)}
+     function handleChangeDate(e){setBirthDate(e.target.value)}
      function nameValid(){return !(!name || name.length <= 2)}
      function usernameValid(){return !(!username || username.length <= 2)}
-     function emailValid(){
-          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;  //eslint-disable-line
-          return !(!email || regex.test(email) === false);
-     }
+     function telValid(){return !(!phone || phone.length <= 2)}
+     function dateValid(){const regex =  /^\d{4}-\d{2}-\d{2}$/;return !(!birthDate || !regex.test(birthDate))} // eslint-disable-next-line
+     function emailValid(){const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; return !(!email || regex.test(email) === false);} // eslint-disable-next-line
      function passValid(){return !(!pass || pass.length <= 8)}
      function confirmPassValid(){return !(!confirmPass || pass !== confirmPass)}
      function checkBoxValid(){return !(!agreed)}
-     function handleSubmitSignUp(){
+     function handleSubmitSignUp(e){
+          e.preventDefault()
           setSuccessful(false)
           const isNameValid = nameValid()
           const isEmailValid = emailValid()
@@ -56,6 +57,8 @@ function SignUpFormComp(props){
           const isPasswordValid = passValid()
           const isConfirmPassValid = confirmPassValid()
           const isCheckBoxValid = checkBoxValid()
+          const isDateValid = dateValid()
+          const isPhoneValid = telValid()
 
           setIsValidName(isNameValid)
           setMsgName(isNameValid ? "" : "Invalid Name")
@@ -75,23 +78,20 @@ function SignUpFormComp(props){
           setIsCheckboxChecked(isCheckBoxValid)
           setMsgCheckbox(isCheckBoxValid ? "" : "You Need To Accept the Terms")
 
-          if(isValidName && isValidEmail && isValidUsername && isValidPass && isPassConfirmed && isCheckboxChecked){
-               console.log(name, email, username, pass, confirmPass, agreed)
-               dispatch(register(name,email,username,pass,confirmPass,agreed))
-               .then(()=>{
-                    setSuccessful(true)
-               })
-               .catch(()=>{
-                    setSuccessful(false)
-               })
+          setIsValidPhone(isPhoneValid)
+          setMsgPhone(isPhoneValid ? "": "Invalid Phone Number")
+
+          setIsValidDate(isDateValid)
+          setMsgDate(isDateValid ? "" : "Invalid Date")
+
+          if(isValidName && isValidEmail && isValidUsername && isValidDate && isValidPhone && isValidPass && isPassConfirmed && isCheckboxChecked){
+               console.log(name, email, username,birthDate,phone, pass, confirmPass, agreed)
+               register(name,email,username,birthDate,phone,pass,confirmPass,agreed)
           }
-     }
-     function handlePreventDef(e){
-          e.preventDefault()
      }
      return(
           <>
-           <form className="frm" onSubmit={handlePreventDef}>
+           <form className="frm" onSubmit={handleSubmitSignUp}>
                {!successful && (
                     <>
                          <p className="validError">{msgName}</p>
@@ -107,6 +107,13 @@ function SignUpFormComp(props){
                <p className="validError">{msgUsername}</p>
                <label htmlFor="username" className="labelBox">Username</label>
                <input type="text" name="username"  id="userName" placeholder="Username..." className="inputBox" onChange={handleChangeUsername} value={username}/>
+               <p className="validError">{msgDate}</p>
+               <label htmlFor="date" className="labelBox">Birth Date</label>
+               <input type="date" name="date" id="date"className="inputBox" onChange={handleChangeDate} value={birthDate}/>
+
+               <p className="validError">{msgPhone}</p>
+               <label htmlFor="phone" className="labelBox">Phone Number</label>
+               <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" name="phone" id="phone" placeholder="Phone Number..." className="inputBox" onChange={handleChangePhone} value={phone}/>
                <p className="validError">{msgPass}</p>
                <label htmlFor="pass" className="labelBox">Password</label>
                <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChangePass} value={pass} />
@@ -118,7 +125,7 @@ function SignUpFormComp(props){
                     <input type="checkbox" name="agreed" className="agreeCheck" checked={agreed} onChange={handleChangeCheckbox}/>
                     <label htmlFor="agreed" className="agreeText">I agree to the <span className="midBold">Terms of User</span></label>
                </span>
-               <button type="submit" className="loginBtn" onClick={() => {handleSubmitSignUp()}}>Sign Up</button>
+               <button type="submit" className="loginBtn">Sign Up</button>
                     </>
                )}
                {message && (
