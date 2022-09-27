@@ -205,6 +205,31 @@ $profileSecondColor: #8FF4FF;
     }
   }
 }
+.homeContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  h2,h1{
+    color: white;
+  }
+}
+.logoutBtn{
+  padding: 10px 20px;
+  color: #222;
+  border: 2px solid #222;
+  border-radius: 10px;
+  background: none;
+  font-family: "Poppins";
+  font-size: 18px;
+  transition: .3s ease-in-out all;
+  &:hover{
+    color: white;
+    background: #222;
+    cursor: pointer;
+  }
+}
 @media screen and (max-width: 1024px){
   .grid{grid-template-columns: auto 550px;}
   .bg{background-size: cover;}

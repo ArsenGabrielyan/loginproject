@@ -1,5 +1,3 @@
-// import axios from "axios";
-
 const dbUrl = "http://localhost:3010/users"
 
 const register = (fullName, email, username, date, phone, password, confirmPassword, isChecked) =>{

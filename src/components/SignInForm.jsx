@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate } from "react-router-dom";
 
-function SignInFormComp(props){
+function SignInFormComp(){
      const [email, setEmail] = useState("")
      const [password, setPassword] = useState("")
      const [isValidEmail, setIsValidEmail] = useState(false)
@@ -39,7 +39,13 @@ function SignInFormComp(props){
                               localStorage.setItem("user", JSON.stringify(data[i]))
                               navigate("/profile")
                          }
-                         setMessage(data[i].email !== email || data[i].password !== password ? "Cannot Log in" : "")
+                         if(data[i].email !== email || (data[i].password !== password || data[i].confirmPassword !== password)){
+                              setMessage("Cannot Log in")
+                         } else if(localStorage.getItem("user") === null){
+                              setMessage("That user is not registered")
+                         } else{
+                              setMessage("")
+                         }
                     }
                })
           } 
