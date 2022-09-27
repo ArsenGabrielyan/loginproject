@@ -1,3 +1,15 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "abc@dre.com",
+      "password": "$2a$10$erpGVQjC1GxmK4u7zeP.Vu7GKm58iULeaTU4qJ4Bubk54kyKuBwIe",
+      "fullName": "Full Name",
+      "username": "NameTech",
+      "date": "1999-01-15",
+      "phone": "012-345-678",
+      "confirmPassword": "abcd1234++--",
+      "isChecked": true,
+      "id": 1
+    }
+  ]
 }

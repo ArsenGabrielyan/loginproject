@@ -2,10 +2,17 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import profileImg from "../img/blank-profile-picture-973460__340.webp"
 import ProfileHeader from "./profile/ProfileHeader";
+import {logout} from "../actions/auth"
+import { useNavigate } from "react-router-dom";
 
 const users = JSON.parse(localStorage.getItem("user"));
 
 function ProfilePage(){
+     const navigate = useNavigate()
+     function handleLogout(){
+          logout()
+          navigate("/")
+     }
      console.log(users)
      return(
           <div className="profile-page">
@@ -28,6 +35,7 @@ function ProfilePage(){
                               <p><span className="infoIcon"><Icon icon="carbon:email" /></span>{users.email}</p>
                               <p><span className="infoIcon"><Icon icon="clarity:house-line" /></span>Armenia</p>
                          </div>
+                         <button className="logoutBtn" onClick={handleLogout}>SIGN OUT</button>
                     </div>
                </div>
                </div>

@@ -16,6 +16,10 @@ class Home extends React.Component{
                          </ul>
                     </div>
                </header>
+               <div className="homeContainer">
+                         <h1>Welcome to MEETME</h1>
+                         <h2>Sign up or Sign in to Access</h2>
+                    </div>
                </div>
           )
      }
