@@ -1,17 +1,17 @@
 import { Icon } from "@iconify/react";
 import React from "react";
-import profileImg from "../img/blank-profile-picture-973460__340.webp"
 import ProfileHeader from "./profile/ProfileHeader";
 import {logout} from "../actions/auth"
 import { useNavigate } from "react-router-dom";
 
-const users = JSON.parse(localStorage.getItem("user"));
+let users = JSON.parse(localStorage.getItem("user"));
 
 function ProfilePage(){
      const navigate = useNavigate()
      function handleLogout(){
           logout()
           navigate("/")
+          users = {}
      }
      console.log(users)
      return(
@@ -21,7 +21,7 @@ function ProfilePage(){
                <div className="profile-info">
                     <div className="container"></div>
                     <div className="left">
-                         <img src={profileImg} alt="profile" />
+                         <img src={users.file} alt="profile" />
                     </div>
                     <div className="right">
                          <h3 id="h1">HELLO EVERYBODY I AM</h3>
