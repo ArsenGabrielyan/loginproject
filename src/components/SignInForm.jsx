@@ -11,12 +11,8 @@ function SignInFormComp(){
      const navigate = useNavigate()
      const [message, setMessage] = useState("")
 
-     function handleChangeEmail(e){
-          setEmail(e.target.value)
-     }
-     function handleChangePass(e){
-          setPassword(e.target.value)
-     }
+     function handleChangeEmail(e){setEmail(e.target.value)}
+     function handleChangePass(e){setPassword(e.target.value)}
      function emailValidation(){
           const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //eslint-disable-line
           return !(!email || regex.test(email) !== true);
@@ -31,18 +27,16 @@ function SignInFormComp(){
           setIsValidEmail(isEmailValid)
           setMessage1(isEmailValid ? "" : "Invalid Email")
           if(isValidEmail && isValidPassword){
-               console.log(email, password)
                fetch("http://localhost:3010/users").then(res => res.json())
                .then(data => {
                     for(let i=0; i<data.length; i++){
                          if(data[i].email === email && (data[i].password === password || data[i].confirmPassword === password)){
                               localStorage.setItem("user", JSON.stringify(data[i]))
                               navigate("/profile")
+                              window.location.reload()
                          }
                          if(data[i].email !== email || (data[i].password !== password || data[i].confirmPassword !== password)){
                               setMessage("Cannot Log in")
-                         } else if(localStorage.getItem("user") === null){
-                              setMessage("That user is not registered")
                          } else{
                               setMessage("")
                          }

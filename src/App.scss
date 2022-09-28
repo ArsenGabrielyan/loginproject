@@ -117,15 +117,13 @@ $profileSecondColor: #8FF4FF;
   background: linear-gradient(to right,$profileFirstColor, $profileSecondColor);
   padding: 20px 80px;
 }
-.profileHeader{
+.profileHeader, .profileHeader2{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 25px;
   transition: .3s linear all;
-  .left .logo{
-    color: white;
-  }
+  .left .logo{color: white;}
   .right{
     position: relative;
     display: flex;
@@ -172,26 +170,16 @@ $profileSecondColor: #8FF4FF;
   background: white;
   padding: 10px;
   display: flex;
-  .left, .right{
-    padding: 10px;
-  }
-  .left img{
-    width: 500px;
-  }
+  .left, .right{padding: 10px;}
+  .left img{width: 500px;}
   .right{
     #h1{
       color: #797876;
       font-weight: 400;
     }
-    #name{
-      font-size: 50px;
-    }
-    #oc{
-      margin: 10px 0;
-    }
-    #text{
-      color: #797876;
-    }
+    #name{font-size: 50px;}
+    #oc{margin: 10px 0;}
+    #text{color: #797876;}
     .info{
       padding: 25px 15px;
       p{
@@ -211,9 +199,7 @@ $profileSecondColor: #8FF4FF;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  h2,h1{
-    color: white;
-  }
+  h2,h1{color: white;}
 }
 .logoutBtn{
   padding: 10px 20px;
@@ -230,19 +216,60 @@ $profileSecondColor: #8FF4FF;
     cursor: pointer;
   }
 }
+.uploadBtn{
+  padding: 10px 20px;
+  margin: 0 auto;
+  border: 2px solid $firstColor;
+  color: $firstColor;
+  font-family: "Poppins";
+  background: none;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: .3s linear;
+  &:hover{
+    background-color: $firstColor;
+    border-color: transparent;
+    color: white;
+    cursor: pointer;
+  }
+}
 @media screen and (max-width: 1024px){
   .grid{grid-template-columns: auto 550px;}
   .bg{background-size: cover;}
 }
 @media screen and (max-width: 980px){
-  .profile-page{
-    padding: 0;
-  }
+  .profile-page{padding: 0;}
   .profileHeader{
     align-items: flex-start;
     &.active{
       background: #333;
       height: 520px;
+    }
+    .right{
+      display: none;
+      &.active{
+        display: block;
+        position: relative;
+        top: 85px;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .linkList{
+          flex-direction: column;
+          .linkItem{
+            margin: 20px 0;
+          }
+        }
+      }
+  } 
+  }
+  .profileHeader2{
+    align-items: flex-start;
+    &.active{
+      background: #333;
+      height: 250px;
     }
     .right{
       display: none;
@@ -283,12 +310,8 @@ $profileSecondColor: #8FF4FF;
   .profile-info{
     flex-direction: column;
     width: calc(100% - 80px);
-    .left img{
-      width: calc(100% - 80px);
-    }
-    .right{
-      width: calc(100% - 80px);
-    }
+    .left img{width: calc(100% - 80px);}
+    .right{width: calc(100% - 80px);}
   }
 }
 @media screen and (max-width: 425px){
@@ -296,12 +319,8 @@ $profileSecondColor: #8FF4FF;
   .logo{font-size: 20px;}
   .profile-info{
     .right{
-      #h1, #oc, #text{
-        font-size: 16px;
-      }
-      #name{
-        font-size: 30px;
-      }
+      #h1, #oc, #text{font-size: 16px;}
+      #name{font-size: 30px;}
       .info{
         p{
           font-size: 12px;

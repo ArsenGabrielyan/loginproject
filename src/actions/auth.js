@@ -1,8 +1,3 @@
 import AuthService from "../services/authService";
-
-export const register = (fullName, email, username,date,phone, password, confirmPassword, isChecked) =>{
-     return AuthService.register(fullName,email,username,date,phone,password,confirmPassword,isChecked)
-}
-export const logout = () => {
-     return AuthService.logout()    
-}
+export const register = (files, fullName, email, username,date,phone, password, confirmPassword, isChecked) => AuthService.register(files, fullName,email,username,date,phone,password,confirmPassword,isChecked)
+export const logout = () => AuthService.logout()  
