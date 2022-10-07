@@ -2,40 +2,51 @@ import React, {useState} from "react";
 import {useNavigate } from "react-router-dom";
 
 function SignInFormComp(){
-     const [email, setEmail] = useState("")
-     const [password, setPassword] = useState("")
-     const [isValidEmail, setIsValidEmail] = useState(false)
-     const [isValidPassword, setIsValidPassword] = useState(false)
-     const [message1, setMessage1] = useState("")
-     const [message2, setMessage2] = useState("")
+     const [loginData, setLoginData] = useState({
+          email: "",
+          password: ""
+     })
+     const [isLoginValid, setIsLoginValid] = useState({
+          isValidEmail: false,
+          isValidPassword: false
+     })
+     const [msgLogin, setMsgLogin] = useState({
+          message1: "",
+          message2: ""
+     })
      const navigate = useNavigate()
      const [message, setMessage] = useState("")
 
-     function handleChangeEmail(e){setEmail(e.target.value)}
-     function handleChangePass(e){setPassword(e.target.value)}
+     function handleChange(e){
+          setLoginData({...loginData, [e.target.name]: e.target.value})
+     }
      function emailValidation(){
           const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //eslint-disable-line
-          return !(!email || regex.test(email) !== true);
+          return !(!loginData.email || regex.test(loginData.email) !== true);
      }
-     function passwordValidation(){return !(!password || password.length <= 8)}
+     function passwordValidation(){return !(!loginData.password || loginData.password.length <= 8)}
      function handleSubmitLogin(e){
           e.preventDefault()
           const isPassValid = passwordValidation();
           const isEmailValid = emailValidation();
-          setIsValidPassword(isPassValid)
-          setMessage2(isPassValid ? "" : "Invalid Password")
-          setIsValidEmail(isEmailValid)
-          setMessage1(isEmailValid ? "" : "Invalid Email")
-          if(isValidEmail && isValidPassword){
+          setIsLoginValid({
+               isValidEmail: isPassValid,
+               isValidPassword: isEmailValid
+          })
+          setMsgLogin({
+               message1: isEmailValid ? "" : "Invalid Email",
+               message2: isPassValid ? "" : "Invalid Password"
+          })
+          if(isLoginValid.isValidEmail && isLoginValid.isValidPassword){
                fetch("http://localhost:3010/users").then(res => res.json())
                .then(data => {
                     for(let i=0; i<data.length; i++){
-                         if(data[i].email === email && (data[i].password === password || data[i].confirmPassword === password)){
+                         if(data[i].email === loginData.email && (data[i].password === loginData.password || data[i].confirmPassword === loginData.password)){
                               localStorage.setItem("user", JSON.stringify(data[i]))
                               navigate("/profile")
                               window.location.reload()
                          }
-                         if(data[i].email !== email || (data[i].password !== password || data[i].confirmPassword !== password)){
+                         if(data[i].email !== loginData.email || (data[i].password !== loginData.password || data[i].confirmPassword !== loginData.password)){
                               setMessage("Cannot Log in")
                          } else{
                               setMessage("")
@@ -47,12 +58,12 @@ function SignInFormComp(){
      return(
           <>
                <form className="frm" onSubmit={handleSubmitLogin}>
-               <p className="validError">{message1}</p>
+               <p className="validError">{msgLogin.message1}</p>
                <label htmlFor="email" className="labelBox">Email</label>
-                    <input type="email" name="email"  id="email" placeholder="Email address..." className="inputBox" onChange={handleChangeEmail} value={email} />
-                    <p className="validError">{message2}</p>
-                    <label htmlFor="pass" className="labelBox">Password</label>
-                    <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChangePass} value={password} />
+                    <input type="email" name="email"  id="email" placeholder="Email address..." className="inputBox" onChange={handleChange} value={loginData.email} />
+                    <p className="validError">{msgLogin.message2}</p>
+                    <label htmlFor="password" className="labelBox">Password</label>
+                    <input type="password" name="password"  id="password" placeholder="****************" className="inputBox" onChange={handleChange} value={loginData.password} />
                     <button type="submit" className="loginBtn">Sign In</button>
                </form>
                {message && (
