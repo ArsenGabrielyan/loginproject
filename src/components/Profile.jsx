@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import ProfileHeader from "./profile/ProfileHeader";
-import {logout} from "../actions/auth"
+import AuthService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
 let users = JSON.parse(localStorage.getItem("user"));
@@ -9,11 +9,10 @@ let users = JSON.parse(localStorage.getItem("user"));
 function ProfilePage(){
      const navigate = useNavigate()
      function handleLogout(){
-          logout()
+          AuthService.logout()
           navigate("/")
           users = {}
      }
-     console.log(users)
      return(
           <div className="profile-page">
                <ProfileHeader />
@@ -28,7 +27,7 @@ function ProfilePage(){
                          <h2 id="name">{users.fullName.split(" ")[0]}</h2>
                          <h2 id="name">{users.fullName.split(" ")[1]}</h2>
                          <h3 id="oc">DEVELOPER</h3>
-                         <p id="text">You will begin to realise why this exercise is called the Dickens Pattern (with reference to the ghost showing Scrooge some different futures)</p>
+                         <p id="text">You will begin to realise why this exercise is called the {users.fullName} Pattern (with reference to the ghost showing Scrooge some different futures)</p>
                          <div className="info">
                               <p><span className="infoIcon"><Icon icon="uiw:date" /></span> {users.date}</p>
                               <p><span className="infoIcon"><Icon icon="akar-icons:phone" /></span> {users.phone}</p>

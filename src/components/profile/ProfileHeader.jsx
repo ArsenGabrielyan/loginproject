@@ -1,37 +1,35 @@
-import React from "react";
+import {useRef} from "react";
+import {Link} from "react-router-dom"
 
-class ProfileHeader extends React.Component{
-     constructor(props){
-          super(props);
-          this.handleClick = this.handleClick.bind(this)
+function ProfileHeader(){
+     const navbarEl = useRef(null);
+     const togglerEl = useRef(null);
+     const headerEl = useRef(null);
+     function handleClick(){
+          navbarEl.current.classList.toggle("active")
+          togglerEl.current.classList.toggle("active")
+          headerEl.current.classList.toggle("active")
      }
-     handleClick(){
-          document.getElementById("navbar").classList.toggle("active")
-          document.getElementById("toggler").classList.toggle("active")
-          document.getElementById("header").classList.toggle("active")
-     }
-     render(){
-          return(
-               <header className="profileHeader" id="header">
-                    <div className="left">
-                         <h1 className="logo">MEETME</h1>
-                    </div>
-                    <div className="right" id="navbar">
-                         <ul className="linkList">
-                              <li className="linkItem"><a href="#" className="link">HOME</a></li>
-                              <li className="linkItem"><a href="#" className="link">ABOUT</a></li>
-                              <li className="linkItem"><a href="#" className="link">SERVICES</a></li>
-                              <li className="linkItem"><a href="#" className="link">PAGES</a></li>
-                              <li className="linkItem"><a href="#" className="link">BLOG</a></li>
-                              <li className="linkItem"><a href="#" className="link">CONTACT</a></li>
-                         </ul>
-                    </div>
-                    <span className="toggleIcon" id="toggler" onClick={this.handleClick}>
-                         <span></span><span></span><span></span>
-                    </span>
-               </header>
-          )
-     }
+     return(
+          <header className="profileHeader" ref={headerEl}>
+               <div className="left">
+                    <h1 className="logo">MEETME</h1>
+               </div>
+               <div className="right" ref={navbarEl}>
+                    <ul className="linkList">
+                         <li className="linkItem"><Link to="/profile" className="link">HOME</Link></li>
+                         <li className="linkItem"><Link to="/profile" className="link">ABOUT</Link></li>
+                         <li className="linkItem"><Link to="/profile" className="link">SERVICES</Link></li>
+                         <li className="linkItem"><Link to="/profile" className="link">PAGES</Link></li>
+                         <li className="linkItem"><Link to="/profile" className="link">BLOG</Link></li>
+                         <li className="linkItem"><Link to="/profile" className="link">CONTACT</Link></li>
+                    </ul>
+               </div>
+               <span className="toggleIcon" ref={togglerEl} onClick={handleClick}>
+                    <span></span><span></span><span></span>
+               </span>
+          </header>
+     )
 }
 
 export default ProfileHeader
