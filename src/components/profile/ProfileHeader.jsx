@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import {Link} from "react-router-dom"
+import { users } from "../Profile";
 
 function ProfileHeader(){
      const navbarEl = useRef(null);
@@ -19,8 +20,12 @@ function ProfileHeader(){
                     <ul className="linkList">
                          <li className="linkItem"><Link to="/profile" className="link">HOME</Link></li>
                          <li className="linkItem"><Link to="/profile" className="link">ABOUT</Link></li>
-                         <li className="linkItem"><Link to="/profile" className="link">SERVICES</Link></li>
-                         <li className="linkItem"><Link to="/profile" className="link">PAGES</Link></li>
+                         {users.isAdmin && (
+                            <>
+                              <li className="linkItem"><Link to="/service" className="link">SERVICES</Link></li>
+                              <li className="linkItem"><Link to="/pages" className="link">PAGES</Link></li>  
+                            </>
+                         )}
                          <li className="linkItem"><Link to="/profile" className="link">BLOG</Link></li>
                          <li className="linkItem"><Link to="/profile" className="link">CONTACT</Link></li>
                     </ul>

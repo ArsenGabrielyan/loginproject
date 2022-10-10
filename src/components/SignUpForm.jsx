@@ -12,7 +12,8 @@ function SignUpFormComp(){
           agreed: false,
           birthDate: "",
           phone: "",
-          selectedFile: ""
+          selectedFile: "",
+          isAdmin: false,
      })
      const [isValid, setIsValid] = useState({
           isValidName: false,
@@ -37,9 +38,7 @@ function SignUpFormComp(){
           msgFile: ""
      })
      const [successful, setSuccessful] = useState(false)
-
      const fileInput = useRef(null)
-
      function resetForm(){
           let resetValues = {
                name: "",
@@ -50,7 +49,8 @@ function SignUpFormComp(){
                agreed: false,
                birthDate: "",
                phone: "",
-               selectedFile: ""
+               selectedFile: "",
+               isAdmin: false,
           }
           setFormData(formData => ({
                ...formData,
@@ -59,6 +59,9 @@ function SignUpFormComp(){
      }
      function handleChange(e){
           setFormData({...formData, [e.target.name]: e.target.value})
+     }
+     function handleChangeCheckbox(e){
+          setFormData({...formData, [e.target.name]: e.target.checked})
      }
      async function handleChangeFile(){
           const files = fileInput.current?.files[0]
@@ -125,7 +128,7 @@ function SignUpFormComp(){
                msgFile: isFileValid ? "" : "Invalid File"
           })
           if(isValid.isValidFile && isValid.isValidName && isValid.isValidEmail && isValid.isValidUsername && isValid.isValidDate && isValid.isValidPhone && isValid.isValidPass && isValid.isPassConfirmed && isValid.isCheckboxChecked){
-               AuthService.register(formData.selectedFile,formData.name,formData.email,formData.username,formData.birthDate,formData.phone,formData.pass,formData.confirmPass,formData.agreed)
+               AuthService.register(formData.selectedFile,formData.name,formData.email,formData.username,formData.birthDate,formData.phone,formData.pass,formData.confirmPass,formData.agreed, formData.isAdmin)
                e.target.reset()
                resetForm()
           }
@@ -172,8 +175,13 @@ function SignUpFormComp(){
                <input type="password" name="confirmPass" id="confirmPassword" placeholder="****************" className="inputBox" onChange={handleChange} value={formData.confirmPass}/>
                <span className="agreedCheckBox">
                     <p className="validError">{msg.msgCheckbox}</p>
-                    <input type="checkbox" name="agreed" className="agreeCheck" checked={formData.agreed} onChange={handleChange}/>
+                    <input type="checkbox" name="agreed" className="agreeCheck" checked={formData.agreed} onChange={handleChangeCheckbox}/>
                     <label htmlFor="agreed" className="agreeText">I agree to the <span className="midBold">Terms of User</span></label>
+               </span>
+               <br/>
+               <span className="agreedCheckBox">
+                    <input type="checkbox" name="isAdmin" className="agreeCheck" checked={formData.isAdmin} onChange={handleChangeCheckbox}/>
+                    <label htmlFor="IsAdmin" className="agreeText">Are you an Administrator of This Application?</label>
                </span>
                <button type="submit" className="loginBtn">Sign Up</button>
                     </>
