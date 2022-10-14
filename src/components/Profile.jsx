@@ -2,9 +2,9 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import ProfileHeader from "./profile/ProfileHeader";
 import AuthService from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-let users = JSON.parse(localStorage.getItem("user"));
+export let users = JSON.parse(localStorage.getItem("user"));
 
 function ProfilePage(){
      const navigate = useNavigate()
@@ -14,7 +14,8 @@ function ProfilePage(){
           users = {}
      }
      return(
-          <div className="profile-page">
+          <>
+               {users!==null ? (<div className="profile-page">
                <ProfileHeader />
                <div className="toCenter">
                <div className="profile-info">
@@ -38,7 +39,8 @@ function ProfilePage(){
                     </div>
                </div>
                </div>
-          </div>
+          </div>) : <Navigate to="/signin" replace/>}
+          </>
      )
 }
 
