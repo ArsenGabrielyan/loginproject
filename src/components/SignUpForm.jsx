@@ -127,7 +127,8 @@ function SignUpFormComp(){
                msgPhone: isPhoneValid ? "": "Invalid Phone Number",
                msgFile: isFileValid ? "" : "Invalid File"
           })
-          if(isValid.isValidFile && isValid.isValidName && isValid.isValidEmail && isValid.isValidUsername && isValid.isValidDate && isValid.isValidPhone && isValid.isValidPass && isValid.isPassConfirmed && isValid.isCheckboxChecked){
+          const isEverythingValid = Object.values(isValid).every(val => val === true)
+          if(isEverythingValid){
                AuthService.register(formData.selectedFile,formData.name,formData.email,formData.username,formData.birthDate,formData.phone,formData.pass,formData.confirmPass,formData.agreed, formData.isAdmin)
                e.target.reset()
                resetForm()
