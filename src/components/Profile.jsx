@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import ProfileHeader from "./profile/ProfileHeader";
-import AuthService from "../services/authService";
+import { logout } from "../services/authService";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export let users = JSON.parse(localStorage.getItem("user"));
@@ -9,7 +9,7 @@ export let users = JSON.parse(localStorage.getItem("user"));
 function ProfilePage(){
      const navigate = useNavigate()
      function handleLogout(){
-          AuthService.logout()
+          logout()
           navigate("/")
           users = {}
      }

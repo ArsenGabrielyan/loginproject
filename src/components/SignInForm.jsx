@@ -6,10 +6,6 @@ function SignInFormComp(){
           email: "",
           password: ""
      })
-     const [isLoginValid, setIsLoginValid] = useState({
-          isValidEmail: false,
-          isValidPassword: false
-     })
      const [msgLogin, setMsgLogin] = useState({
           message1: "",
           message2: ""
@@ -29,15 +25,12 @@ function SignInFormComp(){
           e.preventDefault()
           const isPassValid = passwordValidation();
           const isEmailValid = emailValidation();
-          setIsLoginValid({
-               isValidEmail: isPassValid,
-               isValidPassword: isEmailValid
-          })
           setMsgLogin({
                message1: isEmailValid ? "" : "Invalid Email",
                message2: isPassValid ? "" : "Invalid Password"
           })
-          if(isLoginValid.isValidEmail && isLoginValid.isValidPassword){
+          const isValidLogin = [isEmailValid, isPassValid].every(val => val === true)
+          if(isValidLogin){
                fetch("http://localhost:3010/users").then(res => res.json())
                .then(data => {
                     for(let i=0; i<data.length; i++){

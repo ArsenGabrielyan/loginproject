@@ -11,6 +11,6 @@ const register = (file, fullName, email, username, date, phone, password, confir
 
 const logout = () => localStorage.removeItem("user");
 
-export default {
+export {
      register,logout
 }
