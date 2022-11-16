@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, {useState, useRef} from "react";
-import AuthService from "../services/authService";
+import {register} from "../services/authService";
 
 function SignUpFormComp(){
      const [formData, setFormData] = useState({
@@ -14,17 +14,6 @@ function SignUpFormComp(){
           phone: "",
           selectedFile: "",
           isAdmin: false,
-     })
-     const [isValid, setIsValid] = useState({
-          isValidName: false,
-          isValidEmail: false,
-          isValidUsername: false,
-          isValidPass: false,
-          isPassConfirmed: false,
-          isCheckboxChecked: false,
-          isValidDate: false,
-          isValidPhone: false,
-          isValidFile: false
      })
      const [msg, setMsg] = useState({
           msgName: "",
@@ -57,12 +46,8 @@ function SignUpFormComp(){
                ...resetValues
           }))
      }
-     function handleChange(e){
-          setFormData({...formData, [e.target.name]: e.target.value})
-     }
-     function handleChangeCheckbox(e){
-          setFormData({...formData, [e.target.name]: e.target.checked})
-     }
+     function handleChange(e){setFormData({...formData, [e.target.name]: e.target.value})}
+     function handleChangeCheckbox(e){setFormData({...formData, [e.target.name]: e.target.checked})}
      async function handleChangeFile(){
           const files = fileInput.current?.files[0]
           const base64 = await convertFilesIntoBase64(files);
@@ -105,17 +90,6 @@ function SignUpFormComp(){
           const isDateValid = dateValid()
           const isPhoneValid = telValid()
           const isFileValid = fileValid()
-          setIsValid({
-               isValidName: isNameValid,
-               isValidEmail: isEmailValid,
-               isValidUsername: isUsernameValid,
-               isValidPass: isPasswordValid,
-               isPassConfirmed: isConfirmPassValid,
-               isCheckboxChecked: isCheckBoxValid,
-               isValidDate: isDateValid,
-               isValidPhone: isPhoneValid,
-               isValidFile: isFileValid
-          })
           setMsg({
                msgName: isNameValid ? "" : "Invalid Name",
                msgEmail: isEmailValid ? "" : "Invalid Email",
@@ -127,9 +101,10 @@ function SignUpFormComp(){
                msgPhone: isPhoneValid ? "": "Invalid Phone Number",
                msgFile: isFileValid ? "" : "Invalid File"
           })
-          const isEverythingValid = Object.values(isValid).every(val => val === true)
+          const isValidSignUp = [isNameValid, isEmailValid, isUsernameValid, isPasswordValid, isConfirmPassValid, isCheckBoxValid, isDateValid, isPhoneValid, isFileValid]
+          const isEverythingValid = isValidSignUp.every(val => val === true)
           if(isEverythingValid){
-               AuthService.register(formData.selectedFile,formData.name,formData.email,formData.username,formData.birthDate,formData.phone,formData.pass,formData.confirmPass,formData.agreed, formData.isAdmin)
+               register(formData.selectedFile,formData.name,formData.email,formData.username,formData.birthDate,formData.phone,formData.pass,formData.confirmPass,formData.agreed, formData.isAdmin)
                e.target.reset()
                resetForm()
           }
