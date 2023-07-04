@@ -1,7 +1,6 @@
-import React from "react";
 import SignUpPage from "./SignUp";
 
-function MainPage(){
+export default function MainPage(){
      return(
      <div className="grid">
           <div className="bg"></div>
@@ -12,5 +11,3 @@ function MainPage(){
      </div>
      )
 }
-
-export default MainPage
