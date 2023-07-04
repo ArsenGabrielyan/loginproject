@@ -7,7 +7,7 @@ import ProfilePage from './components/Profile';
 import AdminService from './components/AdminService';
 import AdminPages from './components/AdminPages';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Routes>
@@ -21,5 +21,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
