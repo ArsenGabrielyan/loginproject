@@ -1,58 +1,34 @@
 import React, {useState} from "react";
 import {useNavigate } from "react-router-dom";
+import {passwordValidation, emailValidation} from "../data/loginValid";
+import {DB_URL} from "../data/constants";
 
-function SignInFormComp(){
-     const [loginData, setLoginData] = useState({
-          email: "",
-          password: ""
-     })
-     const [isLoginValid, setIsLoginValid] = useState({
-          isValidEmail: false,
-          isValidPassword: false
-     })
-     const [msgLogin, setMsgLogin] = useState({
-          message1: "",
-          message2: ""
-     })
-     const navigate = useNavigate()
+export default function SignInFormComp(){
+     const [loginData, setLoginData] = useState({email: "",password: ""})
+     const [msgLogin, setMsgLogin] = useState({message1: "",message2: ""})
      const [message, setMessage] = useState("")
-
-     function handleChange(e){
-          setLoginData({...loginData, [e.target.name]: e.target.value})
-     }
-     function emailValidation(){
-          const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //eslint-disable-line
-          return !(!loginData.email || regex.test(loginData.email) !== true);
-     }
-     function passwordValidation(){return !(!loginData.password || loginData.password.length <= 8)}
+     const navigate = useNavigate();
+     
+     const handleChange = (e) => setLoginData({...loginData, [e.target.name]: e.target.value});
      function handleSubmitLogin(e){
           e.preventDefault()
-          const isPassValid = passwordValidation();
-          const isEmailValid = emailValidation();
-          setIsLoginValid({
-               isValidEmail: isPassValid,
-               isValidPassword: isEmailValid
-          })
+          const isPassValid = passwordValidation(loginData);
+          const isEmailValid = emailValidation(loginData);
           setMsgLogin({
                message1: isEmailValid ? "" : "Invalid Email",
                message2: isPassValid ? "" : "Invalid Password"
           })
-          if(isLoginValid.isValidEmail && isLoginValid.isValidPassword){
-               fetch("http://localhost:3010/users").then(res => res.json())
-               .then(data => {
-                    for(let i=0; i<data.length; i++){
-                         if(data[i].email === loginData.email && (data[i].password === loginData.password || data[i].confirmPassword === loginData.password)){
-                              localStorage.setItem("user", JSON.stringify(data[i]))
-                              navigate("/profile")
-                              window.location.reload()
-                         }
-                         if(data[i].email !== loginData.email || (data[i].password !== loginData.password || data[i].confirmPassword !== loginData.password)){
-                              setMessage("Cannot Log in")
-                         } else{
-                              setMessage("")
-                         }
+          const isValidLogin = [isEmailValid, isPassValid].every(val => val);
+          if(isValidLogin){
+               fetch(DB_URL).then(res=>res.json())
+               .then(data => data.forEach(val=>{
+                    if(val.email === loginData.email && (val.pass === loginData.password || val.confirmPass=== loginData.password)){
+                         localStorage.setItem("user", JSON.stringify(val))
+                         navigate("/profile")
+                         window.location.reload()
                     }
-               })
+                    setMessage(val.email !== loginData.email || (val.pass !== loginData.password || val.confirmPass!== loginData.password) ? "User Not Found" : "")
+               }))
           } 
      }
      return(
@@ -66,11 +42,7 @@ function SignInFormComp(){
                     <input type="password" name="password"  id="password" placeholder="****************" className="inputBox" onChange={handleChange} value={loginData.password} />
                     <button type="submit" className="loginBtn">Sign In</button>
                </form>
-               {message && (
-                    <p className="validError">{message}</p>
-               )}
-               </>
+               {message && <p className="validError">{message}</p>}
+          </>
      )
 }
-
-export default SignInFormComp
