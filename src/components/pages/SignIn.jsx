@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from "react-router-dom";
-import SignInFormComp from "./SignInForm";
+import SignInFormComp from "../SignInForm";
 
 export default function SignInPage(){
      return(

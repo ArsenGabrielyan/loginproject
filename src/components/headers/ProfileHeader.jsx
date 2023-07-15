@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {Link} from "react-router-dom"
-import { users } from "../Profile";
+import { users } from "../pages/Profile";
 
 export default function ProfileHeader(){
      const [toggled, setToggled] = useState(false);
