@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
-import ProfileHeader from "./headers/ProfileHeader";
-import { logout } from "../services/authService";
+import ProfileHeader from "../headers/ProfileHeader";
+import { logout } from "../../services/authService";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export let users = JSON.parse(localStorage.getItem("user"));

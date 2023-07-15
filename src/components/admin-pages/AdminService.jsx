@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { users } from "./Profile";
-import AdminHeader from "./headers/AdminHeader";
+import { users } from "../pages/Profile";
+import AdminHeader from "../headers/AdminHeader";
 
 export default function AdminService(){
      return(

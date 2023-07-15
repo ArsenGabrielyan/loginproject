@@ -1,15 +1,15 @@
 import { Icon } from "@iconify/react";
 import {useState, useRef} from "react";
 import {register} from "../services/authService";
-import { INITIAL_FORM_DATA, INITIAL_FORM_MSG } from "../data/constants";
+import { DB_URL, INITIAL_FORM_DATA, INITIAL_FORM_MSG } from "../data/constants";
 import {isEverythingValid} from "../data/signupValid";
 
 export default function SignUpFormComp(){
      const fileInput = useRef(null)
      const [formData, setFormData] = useState(INITIAL_FORM_DATA)
      const [msg, setMsg] = useState(INITIAL_FORM_MSG)
-     const [successful, setSuccessful] = useState(false);
-     
+     const [message, setMessage] = useState("");
+
      const handleChange =e=>setFormData({...formData, [e.target.name]: e.target.value})
      const handleChangeCheckbox =e=> setFormData({...formData, [e.target.name]: e.target.checked})
      const convertIntoBase64 =file=> new Promise((resolve, reject)=>{
@@ -24,8 +24,8 @@ export default function SignUpFormComp(){
           setFormData({...formData, selectedFile: base64})
      }
      function handleSubmitSignUp(e){
-          e.preventDefault()
-          setSuccessful(false);
+          e.preventDefault();
+          setMessage("")
           const isValid = isEverythingValid(formData);
           setMsg({
                msgName: isValid.isNameValid ? "" : "Name is Too Short",
@@ -36,14 +36,21 @@ export default function SignUpFormComp(){
                msgCheckbox: isValid.isCheckBoxValid ? "" : "You Need To Accept the Terms",
                msgDate: isValid.isDateValid ? "" : "Date Format Isn't Valid",
                msgPhone: isValid.isPhoneValid ? "": "Phone Number Isn't Valid",
-               msgFile: isValid.isFileValid ? "" : "You Didn't Attach the File"
+               msgFile: isValid.isFileValid ? "" : "You Didn't Attach the Profile Picture"
           })
           const {selectedFile,name,email,username,birthDate,phone,pass,confirmPass,agreed,isAdmin} = formData;
-          if(Object.values(isValid).every(val=>val)) register(selectedFile,name,email,username,birthDate,phone,pass,confirmPass,agreed,isAdmin,e,setFormData);
+          if(Object.values(isValid).every(val=>val)) {
+               fetch(DB_URL).then(res=>res.json())
+               .then(data=>{
+                    const selected = data.find(val=>val.email===email);
+                    setMessage(selected ? "This Account Already Exists" : "")
+                    if(!selected) 
+                         register(selectedFile,name,email,username,birthDate,phone,pass,confirmPass,agreed,isAdmin,e,setFormData);
+               })
+          }
      }
      return(
           <form className="frm" onSubmit={handleSubmitSignUp}>
-               {!successful && <>
                <p className="validError">{msg.msgFile}</p>
                <label htmlFor="uploadFile" className="labelBox">Profile Picture</label>
                <button className="uploadBtn" onClick={()=>fileInput.current.click()} type="button"><Icon icon="fa-solid:upload"/> Upload</button>
@@ -64,7 +71,7 @@ export default function SignUpFormComp(){
                <input type="date" name="birthDate" id="date"className="inputBox" onChange={handleChange} value={formData.birthDate}/>
                <p className="validError">{msg.msgPhone}</p>
                <label htmlFor="phone" className="labelBox">Phone Number</label>
-               <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" maxLength={11} name="phone" id="phone" placeholder="Phone Number..." className="inputBox" onChange={handleChange} value={formData.phone}/>
+               <input type="tel" name="phone" id="phone" placeholder="Phone Number..." className="inputBox" onChange={handleChange} value={formData.phone}/>
                <p className="validError">{msg.msgPass}</p>
                <label htmlFor="pass" className="labelBox">Password</label>
                <input type="password" name="pass"  id="password" placeholder="****************" className="inputBox" onChange={handleChange} value={formData.pass} />
@@ -82,7 +89,7 @@ export default function SignUpFormComp(){
                     <label htmlFor="IsAdmin" className="agreeText">Are you an Administrator of This Application?</label>
                </span>
                <button type="submit" className="loginBtn">Sign Up</button>
-               </>}
+               {message && <p className="validError" style={{textAlign: "center"}}>{message}</p>}
           </form>
      )
 }

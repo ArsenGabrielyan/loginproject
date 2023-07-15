@@ -21,14 +21,18 @@ export default function SignInFormComp(){
           const isValidLogin = [isEmailValid, isPassValid].every(val => val);
           if(isValidLogin){
                fetch(DB_URL).then(res=>res.json())
-               .then(data => data.forEach(val=>{
-                    if(val.email === loginData.email && (val.pass === loginData.password || val.confirmPass=== loginData.password)){
-                         localStorage.setItem("user", JSON.stringify(val))
-                         navigate("/profile")
-                         window.location.reload()
-                    }
-                    setMessage(val.email !== loginData.email || (val.pass !== loginData.password || val.confirmPass!== loginData.password) ? "User Not Found" : "")
-               }))
+               .then(data => {
+                    const selected = data.find(val=>val.email===loginData.email);
+                    if(selected){
+                         setMessage(selected.pass!==loginData.password?"Wrong Password. Please Try Again":"")
+                         if(selected.pass===loginData.password){
+                              setMessage("");
+                              localStorage.setItem("user", JSON.stringify(selected))
+                              navigate("/profile")
+                              window.location.reload()
+                         }
+                    } else setMessage("This Account Doesn't Exist. Create a New One")
+               })
           } 
      }
      return(

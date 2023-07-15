@@ -1,4 +1,4 @@
-import SignUpPage from "./SignUp";
+import SignUpPage from "../pages/SignUp";
 
 export default function MainPage(){
      return(
