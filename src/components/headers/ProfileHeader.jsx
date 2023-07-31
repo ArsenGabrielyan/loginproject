@@ -11,12 +11,10 @@ export default function ProfileHeader(){
                     <ul className="linkList">
                          <li className="linkItem"><Link to="/profile" className="link">HOME</Link></li>
                          <li className="linkItem"><Link to="/profile" className="link">ABOUT</Link></li>
-                         {users.isAdmin && (
-                            <>
+                         {users.isAdmin && <>
                               <li className="linkItem"><Link to="/service" className="link">SERVICES</Link></li>
                               <li className="linkItem"><Link to="/pages" className="link">PAGES</Link></li>  
-                            </>
-                         )}
+                         </>}
                          <li className="linkItem"><Link to="/profile" className="link">BLOG</Link></li>
                          <li className="linkItem"><Link to="/profile" className="link">CONTACT</Link></li>
                     </ul>

@@ -2,17 +2,15 @@ import { Icon } from "@iconify/react";
 import {useState, useRef} from "react";
 import {register} from "../services/authService";
 import { DB_URL, INITIAL_FORM_DATA, INITIAL_FORM_MSG } from "../data/constants";
-import {isEverythingValid} from "../data/signupValid";
+import {signupValid} from "../data/signupValid";
 
 export default function SignUpFormComp(){
-     const fileInput = useRef(null)
      const [formData, setFormData] = useState(INITIAL_FORM_DATA)
      const [msg, setMsg] = useState(INITIAL_FORM_MSG)
-     const [message, setMessage] = useState("");
-
+     const [message, setMessage] = useState(""), fileInput = useRef(null);
      const handleChange =e=>setFormData({...formData, [e.target.name]: e.target.value})
      const handleChangeCheckbox =e=> setFormData({...formData, [e.target.name]: e.target.checked})
-     const convertIntoBase64 =file=> new Promise((resolve, reject)=>{
+     const convertIntoBase64 = file=> new Promise((resolve, reject)=>{
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => resolve(reader.result);
@@ -23,10 +21,9 @@ export default function SignUpFormComp(){
           const base64 = await convertIntoBase64(files);
           setFormData({...formData, selectedFile: base64})
      }
-     function handleSubmitSignUp(e){
-          e.preventDefault();
-          setMessage("")
-          const isValid = isEverythingValid(formData);
+     const handleSubmitSignUp = e =>{
+          e.preventDefault(); setMessage("")
+          const isValid = signupValid(formData), {email} = formData;
           setMsg({
                msgName: isValid.isNameValid ? "" : "Name is Too Short",
                msgEmail: isValid.isEmailValid ? "" : "Email Format Isn't Valid",
@@ -38,14 +35,12 @@ export default function SignUpFormComp(){
                msgPhone: isValid.isPhoneValid ? "": "Phone Number Isn't Valid",
                msgFile: isValid.isFileValid ? "" : "You Didn't Attach the Profile Picture"
           })
-          const {selectedFile,name,email,username,birthDate,phone,pass,confirmPass,agreed,isAdmin} = formData;
           if(Object.values(isValid).every(val=>val)) {
                fetch(DB_URL).then(res=>res.json())
                .then(data=>{
                     const selected = data.find(val=>val.email===email);
                     setMessage(selected ? "This Account Already Exists" : "")
-                    if(!selected) 
-                         register(selectedFile,name,email,username,birthDate,phone,pass,confirmPass,agreed,isAdmin,e,setFormData);
+                    if(!selected) register(formData,e,setFormData);
                })
           }
      }

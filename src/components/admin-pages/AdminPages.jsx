@@ -3,15 +3,10 @@ import { users } from "../pages/Profile";
 import AdminHeader from "../headers/AdminHeader";
 
 export default function AdminPages(){
-     return(
-          <>
-          {users.isAdmin ? (
-          <div className="profile-page">
+     return <>
+     {users.isAdmin ? <div className="profile-page">
           <AdminHeader />
-          <div className="homeContainer">
-               <h1>MEETME PAGES</h1>
-          </div>
-          </div>) : <Navigate to="/profile" replace/>}
-          </>
-     )
+          <div className="homeContainer"><h1>MEETME PAGES</h1></div>
+     </div> : <Navigate to="/profile" replace/>}
+     </>
 }

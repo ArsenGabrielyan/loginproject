@@ -13,7 +13,7 @@ const passValid = formData => !(!formData.pass || !regex.pass.test(formData.pass
 const fileValid = formData => !(!formData.selectedFile)
 const dateValid = formData => !(!formData.birthDate || !regex.date.test(formData.birthDate))
 const emailValid = formData => !(!formData.email || !regex.email.test(formData.email));
-export const isEverythingValid = (formData)=> ({
+export const signupValid = (formData)=> ({
      isNameValid: nameValid(formData),
      isEmailValid: emailValid(formData),
      isUsernameValid: usernameValid(formData),
