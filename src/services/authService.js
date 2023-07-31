@@ -3,7 +3,8 @@ export const register = (formData,e,setFormData) => fetch(DB_URL,{
      method: "POST",
      headers: {"Content-Type": "application/json"},
      body: JSON.stringify(formData)
-}).then(res => res.json).then(()=>{
+}).then(res => res.json)
+.then(()=>{
      e.target.reset()
      setFormData(INITIAL_FORM_DATA)
 });
