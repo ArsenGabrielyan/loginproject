@@ -5,7 +5,7 @@
   min-height: 90vh;
 }
 .profile-page{
-  background: linear-gradient(to right,$profileFirstColor, $profileSecondColor);
+  background: linear-gradient(to right,$profColor1, $profColor2);
   padding: 20px 80px;
 }
 .profileHeader, .profileHeader2{
@@ -14,7 +14,7 @@
   align-items: center;
   padding: 25px;
   transition: .3s linear all;
-  .left .logo{color: white;}
+  .left .logo{color: $white;}
   .right{
     position: relative;
     display: flex;
@@ -28,12 +28,12 @@
   .linkItem{
     margin: 0 10px;
     .link{
-      color: white;
+      color: $white;
       padding: 10px 20px;
       transition: .3s ease-in-out all;
       &:hover{
-        color: #222;
-        background: white;
+        color: $black;
+        background: $white;
         border-radius: 10px;
       }
     }
@@ -46,10 +46,10 @@
   position: relative;
   outline: 0;
   z-index: 999;
-  color: #fff;
+  color: $white;
   font-size: 25px;
   span{
-    background: white;
+    background: $white;
     height: 3px;
     display: block;
     margin: 6px 0;
@@ -58,19 +58,19 @@
   }
 }
 .profile-info{
-  background: white;
+  background: $white;
   padding: 10px;
   display: flex;
   .left, .right{padding: 10px;}
   .left img{width: 500px;}
   .right{
-    #h1{color: #797876;font-weight: 400;}
+    #h1{color: $darkGray;font-weight: 400;}
     #name{font-size: 50px;}
     #oc{margin: 10px 0;}
-    #text{color: #797876;}
+    #text{color: $darkGray;}
     .info{
       padding: 25px 15px;
-      p{margin: 10px 0;color: #797876;}
+      p{margin: 10px 0;color: $darkGray;}
       .infoIcon{padding: 0 1px;}
     }
   }
@@ -79,13 +79,13 @@
   .profile-page{padding: 0;}
   .profileHeader, .profileHeader2{
     align-items: flex-start;
-    &.active{background: #333;height: 520px;}
+    &.active{background: $medBlack;height: 520px;}
     .right{
       display: none;
       &.active{
         display: block;
-        position: relative;
-        top: 85px;
+        position: absolute;
+        top: 70px;
         left: 0;
         display: flex;
         justify-content: center;
