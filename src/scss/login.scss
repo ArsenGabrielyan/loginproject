@@ -4,7 +4,7 @@
   h2{
     font-size: 40px;
     text-align: left;
-    color: $hexDarkGray;
+    color: $medBlack;
   }
 }
 .loginBtn{
@@ -13,15 +13,16 @@
   height: 50px;
   margin: 50px 0;
   border-radius: 25px;
-  background: linear-gradient($secondColor, $firstColor);
+  background-image: linear-gradient(to left, $firstColor, $secondColor, $firstColor);
+  background-size: 200%;
   font-size: 18px;
-  color: white;
+  color: $white;
   font-family: "Poppins";
   border: none;outline: none;
   transition: .3s ease-in-out;
   &:hover{
-    background: linear-gradient($firstColor, $secondColor,);
     cursor: pointer;
+    background-position: right;
   }
 }
 @media screen and (max-width: 425px){

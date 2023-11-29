@@ -1,6 +1,6 @@
 .grid{
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 1fr 2fr;
 }
 .bg{
   background: linear-gradient(to top,rgba(232, 81, 158, 0.75), rgba(199, 127, 242, 0.75)), url(../img/bg-01.jpg);
@@ -16,36 +16,36 @@
   justify-content: center;
   align-items: flex-start;
   margin: 50px 0;
-  color: $hexGray;
-  .labelBox{color: $hexGray;font-weight: bold;}
+  color: $gray;
+  .labelBox{color: $gray;font-weight: bold;}
   .inputBox{
     width: 100%;
     height: 50px;
     margin-bottom: 50px;
     background: none;
-    border-bottom: 2px solid $hexMedGray;
+    border-bottom: 2px solid $medGray;
     border-right: none;
     border-left: none;
     border-top: none;
     outline: none;
     font-size: 22px;
     font-family: "Poppins";
-    color: #333333;
+    color: $medBlack;
     transition: .3s ease-in-out all;
     &::placeholder{
       font-family: "Poppins";
-      color: $hexMedGray;
+      color: $medGray;
     }
-    &:focus{border-bottom: 2px solid #e4343c;}
+    &:focus{border-bottom: 2px solid $errorColor;}
   }
   .agreeText{width: 100%;padding: 0 10px;}
   input[type=checkbox]{
     width: $checkboxSize;
     height: $checkboxSize;
     border: none;
-    accent-color: $hexMedGray;
+    accent-color: $medGray;
   }
-  .midBold{color: $hexDarkGray;}
+  .midBold{color: $medBlack;}
 }
 .linkPos{
   position: relative;
@@ -53,24 +53,24 @@
     position: absolute;
     right: 50px;
     bottom: 110px;
-    color: #333333;
+    color: $medBlack;
     transition: .3s linear;
     &:hover{color: $firstColor;}
   }
 }
-.validError{color: #e4343c;}
+.validError{color: $errorColor;}
 .logoutBtn{
   padding: 10px 20px;
-  color: #222;
-  border: 2px solid #222;
+  color: $black;
+  border: 2px solid $black;
   border-radius: 10px;
   background: none;
   font-family: "Poppins";
   font-size: 18px;
   transition: .3s ease-in-out all;
   &:hover{
-    color: white;
-    background: #222;
+    color: $white;
+    background: $black;
     cursor: pointer;
   }
 }
@@ -87,7 +87,7 @@
   &:hover{
     background-color: $firstColor;
     border-color: transparent;
-    color: white;
+    color: $white;
     cursor: pointer;
   }
 }
