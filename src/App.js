@@ -12,11 +12,9 @@ export default function App() {
     {path: "/service",element: <AdminService />},
     {path: "/pages",element: <AdminPages />},
   ])
-  return (
-    <div className="App">
-      <Suspense>
-        <RouterProvider router={routes} />
-      </Suspense>
-    </div>
-  );
+  return <div className="App">
+    <Suspense>
+      <RouterProvider router={routes} />
+    </Suspense>
+  </div>;
 }
