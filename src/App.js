@@ -1,20 +1,21 @@
 import './App.scss';
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
 import { MainPage,SignInPage,Home,ProfilePage,AdminPages,AdminService } from './data/pages';
 
 export default function App() {
+  const routes = createBrowserRouter([
+    {path: "/signup",element: <MainPage />},
+    {path: "/signin",element: <SignInPage />},
+    {path: "/",element: <Home />},
+    {path: "/profile",element: <ProfilePage />},
+    {path: "/service",element: <AdminService />},
+    {path: "/pages",element: <AdminPages />},
+  ])
   return (
     <div className="App">
       <Suspense>
-        <Routes>
-          <Route path='/signup' element={ <MainPage />} />
-          <Route path='/signin' element={ <SignInPage />} />
-          <Route path="/" element={<Home />} />
-          <Route path='/profile' element={<ProfilePage />} />
-          <Route path="/service" element={<AdminService />} />
-          <Route path='/pages' element={<AdminPages />} />
-        </Routes>
+        <RouterProvider router={routes} />
       </Suspense>
     </div>
   );
